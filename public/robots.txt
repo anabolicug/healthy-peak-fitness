@@ -1,0 +1,12 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Block WordPress REST API internals
+Disallow: /wp-json/wp/v2/*
+Disallow: /wp-admin/
+Disallow: /wp-content/plugins/
+Disallow: /wp-content/cache/
+Disallow: /wp-content/themes/
+
+Sitemap: https://healthy-peak-fitness.com/sitemap.xml
