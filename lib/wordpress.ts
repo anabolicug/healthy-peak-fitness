@@ -39,7 +39,8 @@ async function fetchWP<T>(path: string, revalidate = 3600): Promise<T | null> {
 }
 
 export async function getPosts(perPage = 10, page = 1): Promise<WPPost[]> {
-  return fetchWP<WPPost[]>(`/posts?_embed&per_page=${perPage}&page=${page}`) ?? [];
+  const result = await fetchWP<WPPost[]>(`/posts?_embed&per_page=${perPage}&page=${page}`);
+  return result ?? [];
 }
 
 export async function getPost(slug: string): Promise<WPPost | null> {
@@ -52,11 +53,13 @@ export async function getFeaturedImage(post: WPPost): Promise<string> {
 }
 
 export async function getCategories(): Promise<WPCategory[]> {
-  return fetchWP<WPCategory[]>("/categories?per_page=20") ?? [];
+  const result = await fetchWP<WPCategory[]>("/categories?per_page=20");
+  return result ?? [];
 }
 
 export async function getPostsByCategory(categoryId: number, perPage = 10): Promise<WPPost[]> {
-  return fetchWP<WPPost[]>(`/posts?_embed&categories=${categoryId}&per_page=${perPage}`) ?? [];
+  const result = await fetchWP<WPPost[]>(`/posts?_embed&categories=${categoryId}&per_page=${perPage}`);
+  return result ?? [];
 }
 
 export function formatDate(dateString: string): string {
