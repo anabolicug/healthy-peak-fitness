@@ -1,0 +1,54 @@
+services:
+  wordpress:
+    image: wordpress:latest
+    restart: always
+    ports:
+      - "9000:80"
+    environment:
+      WORDPRESS_DB_HOST: healthy-peak-mysql
+      WORDPRESS_DB_USER: wp_user
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD}
+      WORDPRESS_DB_NAME: healthy_peak_wp
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - wp-data:/var/www/html
+    networks:
+      - hp-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/wp-admin/install.php"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  mysql:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_DATABASE: healthy_peak_wp
+      MYSQL_USER: wp_user
+      MYSQL_PASSWORD: ${WP_DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${WP_ROOT_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - hp-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  wp-data:
+    driver: local
+  mysql-data:
+    driver: local
+
+networks:
+  hp-network:
+    driver: bridge
+    name: hp-network
