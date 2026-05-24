@@ -26,7 +26,7 @@ export default async function Home() {
             <div className="flex flex-wrap gap-4">
               <Link
                 href="/blog"
-                className="px-6 py-3 bg-white text-[#0f172a] font-bold rounded-lg hover:bg-zinc-100 transition-colors"
+                className="px-6 py-3 bg-[#2563eb] text-white font-bold rounded-lg hover:bg-[#1d4ed8] transition-colors"
               >
                 Read the Blog
               </Link>
