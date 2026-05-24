@@ -1,6 +1,6 @@
 // WordPress REST API client
 // Configure your WordPress site URL here
-const WP_API_URL = process.env.WP_API_URL || "https://healthy-peak.local/wp-json/wp/v2";
+const WP_API_URL = process.env.WP_API_URL || "https://wp.healthypeakfitness.com/wp-json/wp/v2";
 
 export interface WPPost {
   id: number;
